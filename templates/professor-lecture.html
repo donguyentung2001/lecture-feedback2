@@ -1,0 +1,40 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    window.onload = function() {
+        var lecture_id = '{{ lecture_data[0] }}';
+        var lecture_name = '{{ lecture_data[2] }}';
+        var access_code = '{{ lecture_data[1] }}';
+        var speed_up = '{{ lecture_data[3] }}';
+        var slow_down = '{{ lecture_data[4] }}';
+        document.getElementById("lecture_name").innerHTML = lecture_name; 
+        document.getElementById("access_code").innerHTML = access_code; 
+        document.getElementById("speed_up").innerHTML = speed_up; 
+        document.getElementById("slow_down").innerHTML = slow_down; 
+        var socket = io();
+        socket.on('connect', function() {
+            socket.emit('join', lecture_id);
+        });
+        socket.on('speed_up', function() {
+            new_speed_up = parseInt(speed_up,10) + 1;
+            speed_up = '' + new_speed_up;
+            document.getElementById("speed_up").innerHTML = speed_up; 
+        });
+        socket.on('slow_down', function() {
+            new_slow_down = parseInt(slow_down,10) + 1;
+            slow_down = '' + new_slow_down;
+            document.getElementById("slow_down").innerHTML = slow_down; 
+        });
+        }
+
+
+</script>
+
+<html> 
+    <div> Lecture </div>
+    <div class='lecture_data'>
+        <div> Lecture name: <span id="lecture_name"> </span> </div>
+        <div> Access code:  <span id="access_code"> </span>  </div>
+        <div> Speed up :  <span id="speed_up"> </span> </div>
+        <div> Slow down: <span id="slow_down"> </span>  </div>
+    </div>
+</html>

@@ -1,0 +1,37 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    window.onload = function() {
+        var socket = io();
+        var lecture_id = '{{ lecture_data[0] }}'
+        var lecture_name = '{{ lecture_data[2] }}';
+        var access_code = '{{ lecture_data[1] }}';
+        var speed_up = '{{ lecture_data[3] }}';
+        var slow_down = '{{ lecture_data[4] }}';
+        document.getElementById("lecture_name").innerHTML = lecture_name; 
+        var speed_up = document.getElementById("speed_up");
+        var slow_down = document.getElementById("slow_down"); 
+        speed_up.addEventListener("click", function() {
+            socket.emit('speed_up', {data: lecture_id}); 
+        });
+        slow_down.addEventListener("click", function() {
+            socket.emit('slow_down', {data: lecture_id}); 
+        });
+    }
+</script>
+
+<html> 
+    <div> Lecture </div>
+    <div class='lecture_data'>
+        <div> Lecture name: <span id="lecture_name"> </span> </div>
+
+        <form>
+        <input id ="speed_up" type="submit" value="Speed up">
+        </form>
+
+        <form>
+        <input id ="slow_down" type="submit" value="Slow down">
+        </form>
+    
+    </div>
+    
+</html>
