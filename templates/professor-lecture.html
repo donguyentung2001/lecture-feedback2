@@ -14,15 +14,29 @@
         socket.on('connect', function() {
             socket.emit('join', lecture_id);
         });
-        socket.on('speed_up', function() {
+        socket.on('speed_up', function(data) {
             new_speed_up = parseInt(speed_up,10) + 1;
             speed_up = '' + new_speed_up;
             document.getElementById("speed_up").innerHTML = speed_up; 
+            //wait some seconds
+            setTimeout(function () {
+                new_speed_up = parseInt(document.getElementById("speed_up").innerHTML,10) - 1;
+                speed_up = '' + new_speed_up;
+                document.getElementById("speed_up").innerHTML = speed_up;
+            }, 30000);
+            socket.emit('expire_speed_up', {speed_up_id:data['speed_up_id']});
         });
-        socket.on('slow_down', function() {
+        socket.on('slow_down', function(data) {
             new_slow_down = parseInt(slow_down,10) + 1;
             slow_down = '' + new_slow_down;
             document.getElementById("slow_down").innerHTML = slow_down; 
+            //wait some seconds
+            setTimeout(function () {
+                new_slow_down= parseInt(document.getElementById("slow_down").innerHTML,10) - 1;
+                slow_down = '' + new_slow_down;
+                document.getElementById("slow_down").innerHTML = slow_down;
+            }, 30000);
+            socket.emit('expire_slow_down', {slow_down_id:data['slow_down_id']});
         });
         }
 

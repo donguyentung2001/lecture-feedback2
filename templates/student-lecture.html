@@ -11,10 +11,10 @@
         var speed_up = document.getElementById("speed_up");
         var slow_down = document.getElementById("slow_down"); 
         speed_up.addEventListener("click", function() {
-            socket.emit('speed_up', {data: lecture_id}); 
+            socket.emit('speed_up', {lecture_id: lecture_id}); 
         });
         slow_down.addEventListener("click", function() {
-            socket.emit('slow_down', {data: lecture_id}); 
+            socket.emit('slow_down', {lecture_id: lecture_id}); 
         });
     }
 </script>
@@ -30,6 +30,11 @@
 
         <form>
         <input id ="slow_down" type="submit" value="Slow down">
+        </form>
+
+        <form method="POST"> 
+            <input name="question" type="text" ><br>
+            <input id="question-submit" type = "submit" value="Submit your question">
         </form>
     
     </div>
